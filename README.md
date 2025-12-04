@@ -1,50 +1,238 @@
-# Welcome to your Expo app 👋
+# PG Booking Mobile App 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A comprehensive React Native mobile application built with Expo for booking and managing Paying Guest (PG) accommodations. This app connects students and professionals with suitable PG options, allowing them to search, filter, and book accommodations based on their preferences.
 
-## Get started
+## 🌟 Features
 
-1. Install dependencies
+### For Users
 
-   ```bash
-   npm install
-   ```
+- **Authentication System**: Secure login and registration with JWT tokens
+- **Smart Search & Filters**: Find PGs by area, gender type, budget, and amenities
+- **Detailed PG Listings**: View comprehensive information including photos, rooms, pricing, and amenities
+- **Booking System**: Request and manage PG bookings
+- **Image Gallery**: Browse multiple photos of each PG
+- **Real-time Availability**: Check available beds in different room types
 
-2. Start the app
+### For PG Owners
 
-   ```bash
-   npx expo start
-   ```
+- **PG Management**: Add, edit, and manage multiple PG properties
+- **Booking Management**: View and handle booking requests
+- **Image Uploads**: Upload multiple photos for each PG listing
+- **Room Configuration**: Set up different room types with pricing and availability
 
-In the output, you'll find options to open the app in a
+## 🛠️ Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Framework**: Expo SDK ~54.0
+- **Language**: TypeScript
+- **Navigation**: Expo Router (file-based routing)
+- **UI Components**: React Native
+- **HTTP Client**: Axios
+- **Storage**: AsyncStorage
+- **Image Handling**: Expo Image Picker
+- **State Management**: React Hooks
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📋 Prerequisites
 
-## Get a fresh project
+Before you begin, ensure you have the following installed:
 
-When you're ready, run:
+- Node.js (v16 or higher)
+- npm or yarn
+- Expo CLI
+- Expo Go app (for testing on physical device)
+- Android Studio (for Android emulator) or Xcode (for iOS simulator)
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
 
 ```bash
-npm run reset-project
+git clone https://github.com/sainath-666/mobile-app.git
+cd mobile-app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install Dependencies
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Configure Backend Connection
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Update the backend API URL in `lib/api.ts`:
 
-## Join the community
+```typescript
+const BASE_URL = "http://YOUR_IP_ADDRESS:5000"; // Replace with your backend IP
+```
 
-Join our community of developers creating universal apps.
+**Important**:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- For physical devices: Use your computer's local IP address (find it using `ipconfig` on Windows or `ifconfig` on Mac/Linux)
+- For Android Emulator: Use `http://10.0.2.2:5000`
+- For iOS Simulator: Use `http://localhost:5000`
+
+### 4. Start the Backend Server
+
+Navigate to the backend directory and start the server:
+
+```bash
+cd ../backend-pg
+npm install
+npm start
+```
+
+The backend should be running on `http://localhost:5000`
+
+### 5. Start the Mobile App
+
+```bash
+npm start
+```
+
+### 6. Run on Device/Emulator
+
+Choose one of the following options:
+
+- **Expo Go (Physical Device)**:
+
+  - Install Expo Go from App Store (iOS) or Play Store (Android)
+  - Scan the QR code from the terminal
+  - Ensure your phone and computer are on the same WiFi network
+
+- **Android Emulator**:
+
+  ```bash
+  npm run android
+  ```
+
+- **iOS Simulator** (Mac only):
+  ```bash
+  npm run ios
+  ```
+
+## 📁 Project Structure
+
+```
+mobile-app/
+├── app/                        # Main application screens (file-based routing)
+│   ├── _layout.tsx            # Root layout
+│   ├── login.tsx              # Login/Register screen
+│   ├── (tabs)/                # Tab navigation
+│   │   ├── index.tsx          # Home screen (PG listings)
+│   │   └── explore.tsx        # Explore screen
+│   ├── owner/                 # Owner-specific screens
+│   │   └── pgs.tsx            # Manage PGs
+│   └── pg/                    # PG detail screens
+│       └── [id].tsx           # Dynamic PG details page
+├── components/                 # Reusable UI components
+├── lib/                       # Utilities and configurations
+│   ├── api.ts                 # Axios API configuration
+│   └── authStorage.ts         # AsyncStorage helpers
+├── constants/                 # Theme and constants
+├── hooks/                     # Custom React hooks
+└── assets/                    # Images and static files
+```
+
+## 🔑 Key Features Implementation
+
+### Authentication
+
+- JWT-based authentication
+- Persistent login using AsyncStorage
+- Role-based access (User/Owner)
+
+### PG Search & Filtering
+
+- Search by area/city
+- Filter by gender type (Boys/Girls/Co-ed)
+- Filter by food availability
+- Budget-based filtering
+- Amenity-based filtering
+
+### Booking Flow
+
+1. User browses PG listings
+2. Views detailed PG information
+3. Selects room type and checks availability
+4. Submits booking request
+5. Owner reviews and approves/rejects
+
+## 📱 Available Scripts
+
+| Command           | Description                    |
+| ----------------- | ------------------------------ |
+| `npm start`       | Start Expo development server  |
+| `npm run android` | Run on Android emulator/device |
+| `npm run ios`     | Run on iOS simulator/device    |
+| `npm run web`     | Run in web browser             |
+| `npm run lint`    | Run ESLint                     |
+
+## 🐛 Troubleshooting
+
+### Network Error
+
+- Ensure backend server is running
+- Verify the IP address in `lib/api.ts` matches your computer's IP
+- Check that phone and computer are on the same WiFi network
+- For Android emulator, use `http://10.0.2.2:5000`
+
+### Connection Timeout
+
+- Increase timeout in `lib/api.ts` (currently set to 10000ms)
+- Check firewall settings
+
+### Expo Login Issues
+
+- Run `npx expo login` and authenticate with your Expo account
+- Clear Expo cache: `npx expo start -c`
+
+## 🔐 Environment Variables (Optional)
+
+You can set environment variables for different environments:
+
+```bash
+EXPO_PUBLIC_API_BASE_URL=http://your-api-url:5000
+```
+
+## 📚 API Endpoints
+
+The app connects to the following backend endpoints:
+
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/pgs` - Get all PGs (with filters)
+- `GET /api/pgs/:id` - Get PG details
+- `POST /api/pgs` - Create new PG (owner only)
+- `POST /api/bookings` - Create booking request
+- `POST /api/uploads` - Upload images
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 👤 Author
+
+**Sainath**
+
+- GitHub: [@sainath-666](https://github.com/sainath-666)
+
+## 🙏 Acknowledgments
+
+- Built with [Expo](https://expo.dev)
+- UI inspiration from modern accommodation booking apps
+- Backend powered by Node.js and MongoDB
+
+## 📞 Support
+
+For support, email sai65265@gmail.com or open an issue in the GitHub repository.
+
+---
+
+Made with ❤️ for the PG community
